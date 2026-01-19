@@ -26,50 +26,31 @@ sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-sett
 # 替换终端为bash
 #sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd
 
-# 删除自带 golang
+# 移除自带的 golang
 rm -rf feeds/packages/lang/golang
 # 拉取 golang
 git clone https://github.com/sbwml/packages_lang_golang.git -b 25.x feeds/packages/lang/golang
 
-# 删除自带 geoview
-rm -rf feeds/packages/net/geoview
-rm -rf package/feeds/packages/geoview
-
-# 删除自带 chinadns-ng
-rm -rf feeds/packages/net/chinadns-ng
-rm -rf package/feeds/packages/chinadns-ng
-
-# 删除自带 v2ray-geodata
-rm -rf feeds/packages/net/v2ray-geodata
-rm -rf package/feeds/packages/v2ray-geodata
-
-# 删除自带 naiveproxy
-rm -rf feeds/packages/net/naiveproxy
-rm -rf package/feeds/packages/naiveproxy
-
-# 删除自带 xray-core
-rm -rf feeds/packages/net/xray-core
-rm -rf package/feeds/packages/xray-core
-
+# 移除自带的核心库
+rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
 # 拉取 passwall-packages
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall/packages
-#cd package/passwall/packages
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
+#cd package/passwall-packages
 #git checkout bc40fceb0488dfb5a4adb711cc1830a8021ee555
 #cd -
 
-# 删除自带 luci-app-passwall
+# 移除过时的 luci 版本
 rm -rf feeds/luci/applications/luci-app-passwall
-rm -rf package/feeds/luci/luci-app-passwall
-# 拉取 luci-app-passwall
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall/luci
-#cd package/passwall/luci
+# 拉取 passwall-luci
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall-luci
+#cd package/passwall-luci
 #git checkout ebd3355bdf2fcaa9e0c43ec0704a8d9d8cf9f658
 #cd -
 
 # 拉取 ShadowSocksR Plus+
 #git clone https://github.com/fw876/helloworld.git -b master package/helloworld
 
-# 删除自带 easytier
+# 移除自带的 easytier
 rm -rf feeds/packages/net/easytier
 rm -rf package/feeds/packages/easytier
 # 拉取 easytier、luci-app-easytier
@@ -78,13 +59,13 @@ git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 # 拉取 OpenAppFilter、luci-app-oaf
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
-# 删除 passwall-packages 中 gn
+# 移除 passwall-packages 中的 gn
 #rm -rf package/passwall/packages/gn
-# 删除 passwall-packages 中 naiveproxy
+# 移除 passwall-packages 中的 naiveproxy
 #rm -rf package/passwall/packages/naiveproxy
-# 删除自带 pgyvpn
+# 移除自带的 pgyvpn
 #rm -rf feeds/packages/net/pgyvpn
-# 删除自带 tailscale
+# 移除自带的 tailscale
 #rm -rf feeds/packages/net/tailscale
 
 # 筛选程序

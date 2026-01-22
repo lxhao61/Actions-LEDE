@@ -26,6 +26,9 @@ sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-sett
 # 替换终端为bash
 #sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd
 
+# 移除必依赖 kmod-nft-fullcone
+#sed -i 's/ +kmod-nft-fullcone//' package/network/utils/nftables/Makefile
+
 # 移除自带的 golang
 rm -rf feeds/packages/lang/golang
 # 拉取 golang
@@ -59,6 +62,8 @@ git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 # 拉取 OpenAppFilter、luci-app-oaf
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
+# 删除自带 ddns-scripts
+rm -rf feeds/packages/net/ddns-scripts
 # 移除 passwall-packages 中的 gn
 #rm -rf package/passwall/packages/gn
 # 移除 passwall-packages 中的 naiveproxy
@@ -87,6 +92,8 @@ function merge_package(){
     done
     cd "$rootdir"
 }
+# 提取 ddns-scripts
+merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/ddns-scripts
 # 提取 gn
 #merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git package/passwall/packages devel/gn
 # 提取 naiveproxy

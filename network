@@ -1,0 +1,80 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fdb7:6cd1:6b9c::/48'
+	option packet_steering '1'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	option ipaddr '192.168.5.1'
+	option netmask '255.255.255.0'
+	option ip6assign '64'
+
+config interface 'wan'
+	option device 'br0.2'
+	option proto 'pppoe'
+	option username '028013271515'
+	option password '044639'
+	option ipv6 'auto'
+	option metric '10'
+
+config interface 'wan6'
+	option device 'br0.2'
+	option proto 'dhcpv6'
+	option reqaddress 'try'
+	option reqprefix 'auto'
+
+config device
+	option type 'bridge'
+	option name 'br0'
+	list ports 'lan1'
+	list ports 'lan2'
+	list ports 'lan3'
+	list ports 'wan'
+
+config bridge-vlan
+	option device 'br0'
+	option vlan '1'
+	list ports 'lan1:u*'
+	list ports 'lan2:u*'
+	list ports 'lan3:u*'
+
+config bridge-vlan
+	option device 'br0'
+	option vlan '2'
+	list ports 'wan:t'
+
+config bridge-vlan
+	option device 'br0'
+	option vlan '3'
+	list ports 'wan:t'
+
+config interface 'iptv'
+	option proto 'dhcp'
+	option device 'br0.3'
+	option clientid '00000951002421102549E817114A13BD'
+	option vendorid 'SCITV'
+	option defaultroute '0'
+	option peerdns '0'
+	option metric '20'
+	option delegate '0'
+
+config device
+	option name 'br0.3'
+	option type '8021q'
+	option ifname 'br0'
+	option vid '3'
+	option macaddr 'E8:17:11:4A:13:BD'
+	option ipv6 '0'
+
+config device
+	option type 'bridge'
+	option name 'br-lan'
+	list ports 'br0.1'
+

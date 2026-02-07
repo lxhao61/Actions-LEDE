@@ -11,8 +11,8 @@
 #
 
 # Modify default IP
-sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/luci2/bin/config_generate
-#sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/files/bin/config_generate
 
 # 取消登陆密码
 sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-settings
@@ -20,7 +20,7 @@ sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-sett
 # 删除自带 golang
 rm -rf feeds/packages/lang/golang
 # 拉取 golang
-git clone https://github.com/sbwml/packages_lang_golang.git -b 24.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang.git -b 25.x feeds/packages/lang/golang
 
 # 删除自带 v2ray-geodata
 rm -rf feeds/packages/net/v2ray-geodata
@@ -47,7 +47,10 @@ git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall/luc
 #cd -
 
 # 拉取 ShadowSocksR Plus+
-git clone https://github.com/fw876/helloworld.git -b master package/helloworld
+#git clone https://github.com/fw876/helloworld.git -b master package/helloworld
+
+# 拉取 easytier、luci-app-easytier
+git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 
 # 拉取 msd_lite、luci-app-msd_lite
 git clone https://github.com/gw826943555/openwrt_msd_lite.git package/msd_lite
@@ -65,7 +68,7 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # 删除自带 pgyvpn
 #rm -rf feeds/packages/net/pgyvpn
 # 删除自带 tailscale
-rm -rf feeds/packages/net/tailscale
+#rm -rf feeds/packages/net/tailscale
 
 # 筛选程序
 function merge_package(){
@@ -94,4 +97,4 @@ function merge_package(){
 # 提取 pgyvpn
 #merge_package packages-pgyvpn https://github.com/hue715/lean-packages.git feeds/packages/net net/pgyvpn
 # 提取 tailscale
-merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale
+#merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale

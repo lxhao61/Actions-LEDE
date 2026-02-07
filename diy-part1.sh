@@ -11,7 +11,7 @@
 #
 
 # 回退源码
-#git reset --hard cbcb695937361d0691f24d0c6f2031ec901d1bf2
+#git reset --hard ef5639350ebb8046d5e2b6c96a960c6e7855e57c
 
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default

@@ -11,8 +11,14 @@
 #
 
 # Modify default IP
-sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/luci2/bin/config_generate
-#sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/luci2/bin/config_generate
+sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
+
+# Modify default theme
+#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+
+# Modify hostname
+sed -i 's/LEDE/K3/g' package/base-files/files/bin/config_generate
 
 # 取消登陆密码
 sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-settings
@@ -20,52 +26,46 @@ sed -i 's/^\(.*99999\)/#&/' package/lean/default-settings/files/zzz-default-sett
 # 删除自带 golang
 rm -rf feeds/packages/lang/golang
 # 拉取 golang
-git clone https://github.com/sbwml/packages_lang_golang.git -b 24.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang.git -b 25.x feeds/packages/lang/golang
 
-# 删除自带 v2ray-geodata
-rm -rf feeds/packages/net/v2ray-geodata
-rm -rf package/feeds/packages/v2ray-geodata
-
-# 删除自带 xray-core
-rm -rf feeds/packages/net/xray-core
-rm -rf package/feeds/packages/xray-core
-
-# 删除自带 msd_lite
-rm -rf feeds/packages/net/msd_lite
-rm -rf package/feeds/packages/msd_lite
-
+# 移除自带的核心库
+rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
 # 拉取 passwall-packages
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall/packages
-#cd package/passwall/packages
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
+#cd package/passwall-packages
 #git checkout bc40fceb0488dfb5a4adb711cc1830a8021ee555
 #cd -
 
-# 拉取 luci-app-passwall
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall/luci
-#cd package/passwall/luci
+# 移除过时的 luci 版本
+rm -rf feeds/luci/applications/luci-app-passwall
+# 拉取 passwall-luci
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall-luci
+#cd package/passwall-luci
 #git checkout ebd3355bdf2fcaa9e0c43ec0704a8d9d8cf9f658
 #cd -
 
 # 拉取 ShadowSocksR Plus+
-git clone https://github.com/fw876/helloworld.git -b master package/helloworld
+#git clone https://github.com/fw876/helloworld.git -b master package/helloworld
 
-# 拉取 msd_lite、luci-app-msd_lite
-git clone https://github.com/gw826943555/openwrt_msd_lite.git package/msd_lite
-#git clone https://github.com/ywt114/luci-app-msd_lite.git package/msd_lite
-#git clone https://github.com/ximiTech/msd_lite.git package/msd_lite
-#git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
+# 移除自带的 easytier
+rm -rf feeds/packages/net/easytier
+rm -rf package/feeds/packages/easytier
+# 拉取 easytier、luci-app-easytier
+git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 
 # 拉取 OpenAppFilter、luci-app-oaf
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
-# 删除 passwall-packages 中 gn
+# 删除自带 ddns-scripts
+rm -rf feeds/packages/net/ddns-scripts
+# 移除 passwall-packages 中的 gn
 #rm -rf package/passwall/packages/gn
-# 删除 passwall-packages 中 naiveproxy
+# 移除 passwall-packages 中的 naiveproxy
 #rm -rf package/passwall/packages/naiveproxy
-# 删除自带 pgyvpn
+# 移除自带的 pgyvpn
 #rm -rf feeds/packages/net/pgyvpn
-# 删除自带 tailscale
-rm -rf feeds/packages/net/tailscale
+# 移除自带的 tailscale
+#rm -rf feeds/packages/net/tailscale
 
 # 筛选程序
 function merge_package(){
@@ -86,6 +86,8 @@ function merge_package(){
     done
     cd "$rootdir"
 }
+# 提取 ddns-scripts
+merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/ddns-scripts
 # 提取 gn
 #merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git package/passwall/packages devel/gn
 # 提取 naiveproxy
@@ -94,4 +96,4 @@ function merge_package(){
 # 提取 pgyvpn
 #merge_package packages-pgyvpn https://github.com/hue715/lean-packages.git feeds/packages/net net/pgyvpn
 # 提取 tailscale
-merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale
+#merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale

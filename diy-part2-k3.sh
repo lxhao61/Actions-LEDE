@@ -28,17 +28,19 @@ rm -rf feeds/packages/lang/golang
 # 拉取 golang
 git clone https://github.com/sbwml/packages_lang_golang.git -b 25.x feeds/packages/lang/golang
 
-# 移除自带的核心库
+# 删除 passwall 自带的核心库
 rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
-# 拉取 passwall-packages
+rm -rf package/feeds/packages/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
+# 拉取新的 passwall-packages
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
 #cd package/passwall-packages
 #git checkout bc40fceb0488dfb5a4adb711cc1830a8021ee555
 #cd -
 
-# 移除过时的 luci 版本
+# 删除 passwall 过时的 luci
 rm -rf feeds/luci/applications/luci-app-passwall
-# 拉取 passwall-luci
+rm -rf package/feeds/luci/luci-app-passwall
+# 拉取新的 passwall-luci
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall-luci
 #cd package/passwall-luci
 #git checkout ebd3355bdf2fcaa9e0c43ec0704a8d9d8cf9f658
@@ -62,10 +64,6 @@ rm -rf feeds/packages/net/ddns-scripts
 #rm -rf package/passwall/packages/gn
 # 移除 passwall-packages 中的 naiveproxy
 #rm -rf package/passwall/packages/naiveproxy
-# 移除自带的 pgyvpn
-#rm -rf feeds/packages/net/pgyvpn
-# 移除自带的 tailscale
-#rm -rf feeds/packages/net/tailscale
 
 # 筛选程序
 function merge_package(){
@@ -93,7 +91,3 @@ merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/pa
 # 提取 naiveproxy
 #merge_package master https://github.com/immortalwrt/packages.git package/passwall/packages net/naiveproxy
 #merge_package v5 https://github.com/sbwml/openwrt_helloworld.git package/passwall/packages naiveproxy
-# 提取 pgyvpn
-#merge_package packages-pgyvpn https://github.com/hue715/lean-packages.git feeds/packages/net net/pgyvpn
-# 提取 tailscale
-#merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale

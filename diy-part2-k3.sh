@@ -59,7 +59,7 @@ git clone https://github.com/EasyTier/luci-app-easytier.git package/easytier
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # 删除自带 ddns-scripts
-rm -rf feeds/packages/net/ddns-scripts
+#rm -rf feeds/packages/net/ddns-scripts
 # 移除 passwall-packages 中的 gn
 #rm -rf package/passwall/packages/gn
 # 移除 passwall-packages 中的 naiveproxy
@@ -85,7 +85,7 @@ function merge_package(){
     cd "$rootdir"
 }
 # 提取 ddns-scripts
-merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/ddns-scripts
+#merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/ddns-scripts
 # 提取 gn
 #merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git package/passwall/packages devel/gn
 # 提取 naiveproxy
